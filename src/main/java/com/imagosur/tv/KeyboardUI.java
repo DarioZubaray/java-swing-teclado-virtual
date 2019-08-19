@@ -334,11 +334,6 @@ public class KeyboardUI extends JFrame {
             keycaps.setBackground(SELECTED_COLOR);
         else
             keycaps.setBackground(DEFAULT_KEY_COLOR);
-
-        if(Keyboard.isScrollLockOn())
-            keyscrolllock.setBackground(SELECTED_COLOR);
-        else
-            keyscrolllock.setBackground(DEFAULT_KEY_COLOR);
         
         if(Keyboard.isShiftPressed()) {
             keyshiftl.setBackground(SELECTED_COLOR);
@@ -369,7 +364,7 @@ public class KeyboardUI extends JFrame {
 
         mainPanel = new JPanel();
         functionPanel = new JPanel();
-        keybackquote = initLabel("\"<html>~<br />&nbsp;&nbsp;`</html>\"", "0xC0");
+        keybackquote = initLabel("<html>~<br />&nbsp;&nbsp;`</html>", "0xC0");
         key1 = initLabel("<html>! <br />&nbsp;&nbsp;1</html>", "0x31");
         key2 = initLabel("<html>\"<br />&nbsp;&nbsp;2</html>", "0x32");
         key3 = initLabel("<html># <br />&nbsp;&nbsp;3</html>", "0x33");
@@ -384,7 +379,7 @@ public class KeyboardUI extends JFrame {
         keyequal = initLabel("<html>+<br />&nbsp;&nbsp;=</html>", "0x3D");
         keybackspace = initLabelWithDimension("Backspace", "0x08", 60, 40);
         alphabetPanel = new JPanel();
-        keytab = initLabelWithDimension("TAB", "0x09", 60, 40);
+        keytab = initLabelWithDimension("Tab", "0x09", 60, 40);
         keyq = initLabel("q", "0x51");
         keyw = initLabel("w", "0x57");
         keye = initLabel("e", "0x45");
@@ -397,11 +392,11 @@ public class KeyboardUI extends JFrame {
         keyp = initLabel("p", "0x50");
         keyopenbigbracket = initLabel("<html>{<br />&nbsp;&nbsp;[</html>", "0x5B");
         keyclosebigbracket = initLabel("<html>}<br />&nbsp;&nbsp;]</html>", "0x5D");
-        keybslash = initLabel("<html>|<br />&nbsp;&nbsp;\\\\</html>", "0x5C");
+        keybslash = initLabel("<html>|<br />&nbsp;&nbsp;\\</html>", "0x5C");
         keyj = initLabel("j", "0x4A");
         keyk = initLabel("k", "0x4B");
         keyl = initLabel("l", "0x4C");
-        keycaps = initLabelWithDimension("caps", "0x14", 70, 40);
+        keycaps = initLabelWithDimension("Mayus", "0x14", 70, 40);
         keysemicolon = initLabel("<html>:<br />&nbsp;&nbsp;;</html>", "0x3B");
         keyquote = initLabel("<html>\"<br />&nbsp;&nbsp;'</html>", "0xDE");
         keya = initLabel("a", "0x41");
@@ -412,8 +407,8 @@ public class KeyboardUI extends JFrame {
         keyg = initLabel("g", "0x47");
         keyh = initLabel("h", "0x48");
         keym = initLabel("m", "0x4D");
-        keycomma = initLabel("<html>&lt;<br />&nbsp;&nbsp;,</html>", "0x2C");
-        keydot = initLabel("<html>&gt;<br />&nbsp;&nbsp;.</html>", "0x2E");
+        keycomma = initLabel("<html>&lt;&nbsp;&nbsp;,</html>", "0x2C");
+        keydot = initLabel("<html>&gt;&nbsp;&nbsp;.</html>", "0x2E");
 
         keyshiftl = initLabelWithDimension("Shift", "0x10", 87, 40);
         keyfslash = initLabel("/", "0x2F");
@@ -433,7 +428,7 @@ public class KeyboardUI extends JFrame {
         keyleftarrow = initLabel("<", "0x26");
         keyuparrow = initLabelWithDimension("^", "0x26", 40, 19);
         keydownarrow = initLabelWithDimension(" ", "0x28", 40, 19);
-        keyaltgr = initLabel("ALT GR", "0x12");
+        keyaltgr = initLabel("Alt", "0x12");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Teclado Virtual");
