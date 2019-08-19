@@ -70,7 +70,7 @@ public class KeyboardUI extends JFrame {
                     alphabetKeys.add(key);
                 }
             } catch(ClassCastException ex) {
-                
+                System.err.println(ex.getMessage());
             }
         }
         
@@ -79,7 +79,9 @@ public class KeyboardUI extends JFrame {
                 JLabel key = (JLabel) component;
                 
                 functionKeys.add(key);
-            } catch(ClassCastException ex) { }
+            } catch(ClassCastException ex) {
+              System.err.println(ex.getMessage());
+            }
         }
         functionKeys.remove(keybackspace);
     }
@@ -362,72 +364,71 @@ public class KeyboardUI extends JFrame {
 
     private void initComponents() {
 
-        mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel();
         functionPanel = new JPanel();
-        keybackquote = initLabel("<html>~<br />&nbsp;&nbsp;`</html>", "0xC0");
-        key1 = initLabel("<html>! <br />&nbsp;&nbsp;1</html>", "0x31");
-        key2 = initLabel("<html>\"<br />&nbsp;&nbsp;2</html>", "0x32");
-        key3 = initLabel("<html># <br />&nbsp;&nbsp;3</html>", "0x33");
-        key4 = initLabel("<html>$ <br />&nbsp;&nbsp;4</html>", "0x34");
-        key5 = initLabel("<html>% <br />&nbsp;&nbsp;5</html>", "0x35");
-        key6 = initLabel("<html>& <br />&nbsp;&nbsp;6</html>", "0x36");
-        key7 = initLabel("<html>/ <br />&nbsp;&nbsp;7</html>", "0x37");
-        key8 = initLabel("<html>( <br />&nbsp;&nbsp;8</html>", "0x38");
-        key9 = initLabel("<html>) <br />&nbsp;&nbsp;9</html>", "0x39");
-        key0 = initLabel("<html>= <br />&nbsp;&nbsp;0</html>", "0x40");
-        keyminus = initLabel("<html>_<br />&nbsp;&nbsp;-</html>", "0x2D");
-        keyequal = initLabel("<html>+<br />&nbsp;&nbsp;=</html>", "0x3D");
+        JLabel keybackquote = initLabel("<html>~<br />&nbsp;&nbsp;`</html>", "0xC0");
+        JLabel key1 = initLabel("<html>! <br />&nbsp;&nbsp;1</html>", "0x31");
+        JLabel key2 = initLabel("<html>\"<br />&nbsp;&nbsp;2</html>", "0x32");
+        JLabel key3 = initLabel("<html># <br />&nbsp;&nbsp;3</html>", "0x33");
+        JLabel key4 = initLabel("<html>$ <br />&nbsp;&nbsp;4</html>", "0x34");
+        JLabel key5 = initLabel("<html>% <br />&nbsp;&nbsp;5</html>", "0x35");
+        JLabel key6 = initLabel("<html>& <br />&nbsp;&nbsp;6</html>", "0x36");
+        JLabel key7 = initLabel("<html>/ <br />&nbsp;&nbsp;7</html>", "0x37");
+        JLabel key8 = initLabel("<html>( <br />&nbsp;&nbsp;8</html>", "0x38");
+        JLabel key9 = initLabel("<html>) <br />&nbsp;&nbsp;9</html>", "0x39");
+        JLabel key0 = initLabel("<html>= <br />&nbsp;&nbsp;0</html>", "0x40");
+        JLabel keyminus = initLabel("<html>_<br />&nbsp;&nbsp;-</html>", "0x2D");
+        JLabel keyequal = initLabel("<html>+<br />&nbsp;&nbsp;=</html>", "0x3D");
         keybackspace = initLabelWithDimension("Backspace", "0x08", 60, 40);
         alphabetPanel = new JPanel();
-        keytab = initLabelWithDimension("Tab", "0x09", 60, 40);
-        keyq = initLabel("q", "0x51");
-        keyw = initLabel("w", "0x57");
-        keye = initLabel("e", "0x45");
-        keyr = initLabel("r", "0x52");
-        keyt = initLabel("t", "0x54");
-        keyy = initLabel("y", "0x59");
-        keyu = initLabel("u", "0x55");
-        keyi = initLabel("i", "0x49");
-        keyo = initLabel("o", "0x4F");
-        keyp = initLabel("p", "0x50");
-        keyopenbigbracket = initLabel("<html>{<br />&nbsp;&nbsp;[</html>", "0x5B");
-        keyclosebigbracket = initLabel("<html>}<br />&nbsp;&nbsp;]</html>", "0x5D");
-        keybslash = initLabel("<html>|<br />&nbsp;&nbsp;\\</html>", "0x5C");
-        keyj = initLabel("j", "0x4A");
-        keyk = initLabel("k", "0x4B");
-        keyl = initLabel("l", "0x4C");
+        JLabel keytab = initLabelWithDimension("Tab", "0x09", 60, 40);
+        JLabel keyq = initLabel("q", "0x51");
+        JLabel keyw = initLabel("w", "0x57");
+        JLabel keye = initLabel("e", "0x45");
+        JLabel keyr = initLabel("r", "0x52");
+        JLabel keyt = initLabel("t", "0x54");
+        JLabel keyy = initLabel("y", "0x59");
+        JLabel keyu = initLabel("u", "0x55");
+        JLabel keyi = initLabel("i", "0x49");
+        JLabel keyo = initLabel("o", "0x4F");
+        JLabel keyp = initLabel("p", "0x50");
+        JLabel keyopenbigbracket = initLabel("<html>{<br />&nbsp;&nbsp;[</html>", "0x5B");
+        JLabel keyclosebigbracket = initLabel("<html>}<br />&nbsp;&nbsp;]</html>", "0x5D");
+        JLabel keybslash = initLabel("<html>|<br />&nbsp;&nbsp;\\</html>", "0x5C");
+        JLabel keyj = initLabel("j", "0x4A");
+        JLabel keyk = initLabel("k", "0x4B");
+        JLabel keyl = initLabel("l", "0x4C");
         keycaps = initLabelWithDimension("Mayus", "0x14", 70, 40);
-        keysemicolon = initLabel("<html>:<br />&nbsp;&nbsp;;</html>", "0x3B");
-        keyquote = initLabel("<html>\"<br />&nbsp;&nbsp;'</html>", "0xDE");
-        keya = initLabel("a", "0x41");
-        keyenter = initLabelWithDimension("Enter", "0x0A", 76, 40);
-        keys = initLabel("s", "0x53");
-        keyd = initLabel("d", "0x44");
-        keyf = initLabel("f", "0x46");
-        keyg = initLabel("g", "0x47");
-        keyh = initLabel("h", "0x48");
-        keym = initLabel("m", "0x4D");
-        keycomma = initLabel("<html>&lt;&nbsp;&nbsp;,</html>", "0x2C");
-        keydot = initLabel("<html>&gt;&nbsp;&nbsp;.</html>", "0x2E");
-
+        JLabel keysemicolon = initLabel("<html>:<br />&nbsp;&nbsp;;</html>", "0x3B");
+        JLabel keyquote = initLabel("<html>\"<br />&nbsp;&nbsp;'</html>", "0xDE");
+        JLabel keya = initLabel("a", "0x41");
+        JLabel keyenter = initLabelWithDimension("Enter", "0x0A", 76, 40);
+        JLabel keys = initLabel("s", "0x53");
+        JLabel keyd = initLabel("d", "0x44");
+        JLabel keyf = initLabel("f", "0x46");
+        JLabel keyg = initLabel("g", "0x47");
+        JLabel keyh = initLabel("h", "0x48");
+        JLabel keym = initLabel("m", "0x4D");
+        JLabel keycomma = initLabel("<html>&lt;&nbsp;&nbsp;,</html>", "0x2C");
+        JLabel keydot = initLabel("<html>&gt;&nbsp;&nbsp;.</html>", "0x2E");
         keyshiftl = initLabelWithDimension("Shift", "0x10", 87, 40);
-        keyfslash = initLabel("/", "0x2F");
-        keyz = initLabel("z", "0x5A");
+        JLabel keyfslash = initLabel("/", "0x2F");
+        JLabel keyz = initLabel("z", "0x5A");
         keyshiftr = initLabel("Shift", "0x10");
-        keyx = initLabel("x", "0x58");
-        keyc = initLabel("c", "0x43");
-        keyv = initLabel("v", "0x56");
-        keyb = initLabel("b", "0x42");
-        keyn = initLabel("n", "0x4E");
-        keyrightarrow = initLabel(">", "0x27");
+        JLabel keyx = initLabel("x", "0x58");
+        JLabel keyc = initLabel("c", "0x43");
+        JLabel keyv = initLabel("v", "0x56");
+        JLabel keyb = initLabel("b", "0x42");
+        JLabel keyn = initLabel("n", "0x4E");
+        JLabel keyrightarrow = initLabel(">", "0x27");
         keyctrl1 = initLabel("Ctrl", "0x11");
-        keycommercialat = initLabel("@", "0x200");
+        JLabel keycommercialat = initLabel("@", "0x200");
         keyalt = initLabel("Alt", "0x12");
-        keyspace = initLabelWithDimension(" ", "0x20", 244, 40);
+        JLabel keyspace = initLabelWithDimension(" ", "0x20", 244, 40);
         keyctrl2 = initLabel("Ctrl", "0x11");
-        keyleftarrow = initLabel("<", "0x26");
-        keyuparrow = initLabelWithDimension("^", "0x26", 40, 19);
-        keydownarrow = initLabelWithDimension(" ", "0x28", 40, 19);
+        JLabel keyleftarrow = initLabel("<", "0x26");
+        JLabel keyuparrow = initLabelWithDimension("^", "0x26", 40, 19);
+        JLabel keydownarrow = initLabelWithDimension(" ", "0x28", 40, 19);
         keyaltgr = initLabel("Alt", "0x12");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -759,73 +760,15 @@ public class KeyboardUI extends JFrame {
     }
 
     private JPanel alphabetPanel;
-
     private JPanel functionPanel;
 
-    private JLabel key0;
-    private JLabel key1;
-    private JLabel key2;
-    private JLabel key3;
-    private JLabel key4;
-    private JLabel key5;
-    private JLabel key6;
-    private JLabel key7;
-    private JLabel key8;
-    private JLabel key9;
-    private JLabel keya;
     private JLabel keyalt;
     private JLabel keyaltgr;
-    private JLabel keyb;
-    private JLabel keybackquote;
     private JLabel keybackspace;
-    private JLabel keybslash;
-    private JLabel keyc;
     private JLabel keycaps;
-    private JLabel keyclosebigbracket;
-    private JLabel keycomma;
     private JLabel keyctrl1;
     private JLabel keyctrl2;
-    private JLabel keyd;
-    private JLabel keydot;
-    private JLabel keydownarrow;
-    private JLabel keye;
-    private JLabel keyenter;
-    private JLabel keyequal;
-    private JLabel keyf;
-    private JLabel keyfslash;
-    private JLabel keyg;
-    private JLabel keyh;
-    private JLabel keyi;
-    private JLabel keyj;
-    private JLabel keyk;
-    private JLabel keyl;
-    private JLabel keyleftarrow;
-    private JLabel keym;
-    private JLabel keyminus;
-    private JLabel keyn;
-    private JLabel keyo;
-    private JLabel keyopenbigbracket;
-    private JLabel keyp;
-    private JLabel keyq;
-    private JLabel keyquote;
-    private JLabel keyr;
-    private JLabel keyrightarrow;
-    private JLabel keys;
-    private JLabel keyscrolllock;
-    private JLabel keysemicolon;
     private JLabel keyshiftl;
     private JLabel keyshiftr;
-    private JLabel keyspace;
-    private JLabel keyt;
-    private JLabel keytab;
-    private JLabel keyu;
-    private JLabel keyuparrow;
-    private JLabel keyv;
-    private JLabel keyw;
-    private JLabel keycommercialat;
-    private JLabel keyx;
-    private JLabel keyy;
-    private JLabel keyz;
-    private JPanel mainPanel;
 
 }
