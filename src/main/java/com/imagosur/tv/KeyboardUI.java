@@ -39,8 +39,8 @@ public class KeyboardUI extends JFrame {
         "0x1B", "0x70", "0x71", "0x72", "0x73", "0x74", "0x75", "0x76", "0x77", "0x78", "0x79", "0x7A", "0x7B"
     };
 
-    private static final Color SELECTED_COLOR = new Color(-15304792); //Dark Sky blue
-    private static final Color DEFAULT_KEY_COLOR = new Color(-13421773); //Color GRAY
+    private static final Color SELECTED_COLOR = Color.GRAY;
+    private static final Color DEFAULT_KEY_COLOR = new Color(113, 166, 236);
     private static boolean IS_FUNCTION_KEY_PRESSED = false;
     private final ArrayList<JLabel> alphabetKeys;
     private final ArrayList<JLabel> functionKeys;
@@ -477,12 +477,12 @@ public class KeyboardUI extends JFrame {
         setTitle("Teclado Virtual");
         setAlwaysOnTop(true);
         setAutoRequestFocus(false);
-        setBackground(java.awt.Color.black);
+        setBackground(Color.GRAY);
         setFocusable(false);
         setFocusableWindowState(false);
         setResizable(false);
 
-        mainPanel.setBackground(java.awt.Color.black);
+        mainPanel.setBackground(new Color(0, 123, 253));
 
 //        numpadPanel.setBackground(java.awt.Color.black);
 
@@ -1042,7 +1042,7 @@ public class KeyboardUI extends JFrame {
 //                .addGap(0, 0, 0))
 //        );
 
-        functionPanel.setBackground(java.awt.Color.black);
+        functionPanel.setBackground(new Color(0, 123, 253));
         functionPanel.setFocusable(false);
 
         keybackquote.setBackground(DEFAULT_KEY_COLOR);
@@ -1491,7 +1491,7 @@ public class KeyboardUI extends JFrame {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        alphabetPanel.setBackground(java.awt.Color.black);
+        alphabetPanel.setBackground(new Color(0, 123, 253));
         alphabetPanel.setFocusable(false);
 
         keytab.setBackground(DEFAULT_KEY_COLOR);
