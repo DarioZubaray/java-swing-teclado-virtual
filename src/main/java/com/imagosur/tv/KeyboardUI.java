@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import static java.awt.event.KeyEvent.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -21,25 +22,6 @@ import javax.swing.WindowConstants;
 public class KeyboardUI extends JFrame {
 
     private static final long serialVersionUID = 1L;
-    private static final String[] FN_KEY_OFF_TEXT = new String[]{
-        "<html>ª <br />&nbsp;&nbsp;º</html>", "<html>! <br />&nbsp;&nbsp;1</html>", "<html>\" <br />&nbsp;&nbsp;2</html>",
-        "<html># <br />&nbsp;&nbsp;3</html>", "<html>$ <br />&nbsp;&nbsp;4</html>", "<html>% <br />&nbsp;&nbsp;5</html>",
-        "<html>& <br />&nbsp;&nbsp;6</html>", "<html>/ <br />&nbsp;&nbsp;7</html>", "<html>( <br />&nbsp;&nbsp;8</html>",
-        "<html>) <br />&nbsp;&nbsp;9</html>", "<html>= <br />&nbsp;&nbsp;0</html>", "<html>? <br />&nbsp;&nbsp;'</html>",
-        "<html>¿ <br />&nbsp;&nbsp;¡</html>"
-    };
-    private static final String[] FN_KEY_OFF_VK = new String[]{
-        "0xC0", "0x31", "0x32", "0x33", "0x34", "0x35", "0x36", "0x37", "0x38", "0x39", "0x30", "0x2D", "0x3D"
-    };
-
-    private static final String[] FN_KEY_ON_TEXT = new String[]{
-        "Esc", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12"
-    };
-
-    private static final String[] FN_KEY_ON_VK = new String[]{
-        "0x1B", "0x70", "0x71", "0x72", "0x73", "0x74", "0x75", "0x76", "0x77", "0x78", "0x79", "0x7A", "0x7B"
-    };
-
     private static final Color SELECTED_COLOR = Color.GRAY;
     private static final Color DEFAULT_KEY_COLOR = new Color(113, 166, 236);
     private static boolean IS_FUNCTION_KEY_PRESSED = false;
@@ -73,7 +55,7 @@ public class KeyboardUI extends JFrame {
                 System.err.println(ex.getMessage());
             }
         }
-        
+
         for(Component component : this.functionPanel.getComponents()) {
             try {
                 JLabel key = (JLabel) component;
@@ -139,14 +121,18 @@ public class KeyboardUI extends JFrame {
     private void keyClicked(MouseEvent evt) {
         JLabel key = (JLabel)evt.getSource();           //Source clicked key.
         int keycode = Integer.decode(key.getName());    //Virtual key code associated with the key
+        if(keycode == 0) {
+          System.out.println("omitiendo tecla desconocida");
+          Keyboard.releaseAllSpecialKeys();
+          return;
+        }
         boolean specialkey = false;
         
         /**
          * Check for special keys(e.g. CapsLock, NumLock, Shift key). Perform special
          * actions on special keys click such as pressing, or releasing a pressed key.
          */
-        System.out.println("keyClicked - keycode: " + keycode);
-
+        System.out.println(" keyClicked - keycode: " + keycode + ", typeKey: " + KeyEvent.getKeyText(keycode));
         switch(keycode) {
             case VK_SHIFT:
                 if (Keyboard.isShiftPressed()) 
@@ -186,14 +172,14 @@ public class KeyboardUI extends JFrame {
                 specialkey = true;
                 break;
         }
-        
+
         if(!specialkey) {
             Keyboard.typeKey(keycode);
             Keyboard.releaseAllSpecialKeys();
         }
-        
+
         updateAlphabeticKeys();
-        updateFunctionKeys();
+//        updateFunctionKeys();
         updateSpecialKeys();
     }
 
@@ -249,7 +235,6 @@ public class KeyboardUI extends JFrame {
      */
     private void keyMouseExited(MouseEvent evt) {
         JLabel source = (JLabel) evt.getSource();
-        
         /**
          * Check if the current key is special key or not.
          * Perform no hover effect if the special keys(e.g. CapsLock, NumLock, Shift key etc)
@@ -308,25 +293,6 @@ public class KeyboardUI extends JFrame {
     }
 
     /**
-     * Changes the text of the function/numeric keys. This function is to be called
-     * if the function key is clicked. 
-     */
-    private void updateFunctionKeys() {
-        int i = 0;
-        for(JLabel key : functionKeys) {
-            if(IS_FUNCTION_KEY_PRESSED) {
-                key.setText(FN_KEY_ON_TEXT[i]);
-                key.setName(FN_KEY_ON_VK[i]);
-            } else {
-                key.setText(FN_KEY_OFF_TEXT[i]);
-                key.setName(FN_KEY_OFF_VK[i]);
-            }
-            
-            i++;
-        }
-    }
-
-    /**
      * Changes the current state of the special keys(e.g. CapsLock, NumLock, Shift etc).
      * Sets whether the special keys pressed or not. If the special key is pressed 
      * then blue colored keys are shown else normal keys.
@@ -366,20 +332,21 @@ public class KeyboardUI extends JFrame {
 
         JPanel mainPanel = new JPanel();
         functionPanel = new JPanel();
-        JLabel keybackquote = initLabel("<html>~<br />&nbsp;&nbsp;`</html>", "0xC0");
+        JLabel keybackquote = initLabel(" ", "0");
         JLabel key1 = initLabel("<html>! <br />&nbsp;&nbsp;1</html>", "0x31");
         JLabel key2 = initLabel("<html>\"<br />&nbsp;&nbsp;2</html>", "0x32");
-        JLabel key3 = initLabel("<html># <br />&nbsp;&nbsp;3</html>", "0x33");
+        JLabel key3 = initLabel("<html>· <br />&nbsp;&nbsp;3</html>", "0x33");
         JLabel key4 = initLabel("<html>$ <br />&nbsp;&nbsp;4</html>", "0x34");
         JLabel key5 = initLabel("<html>% <br />&nbsp;&nbsp;5</html>", "0x35");
         JLabel key6 = initLabel("<html>& <br />&nbsp;&nbsp;6</html>", "0x36");
         JLabel key7 = initLabel("<html>/ <br />&nbsp;&nbsp;7</html>", "0x37");
         JLabel key8 = initLabel("<html>( <br />&nbsp;&nbsp;8</html>", "0x38");
         JLabel key9 = initLabel("<html>) <br />&nbsp;&nbsp;9</html>", "0x39");
-        JLabel key0 = initLabel("<html>= <br />&nbsp;&nbsp;0</html>", "0x40");
-        JLabel keyminus = initLabel("<html>_<br />&nbsp;&nbsp;-</html>", "0x2D");
-        JLabel keyequal = initLabel("<html>+<br />&nbsp;&nbsp;=</html>", "0x3D");
+        JLabel key0 = initLabel("<html>= <br />&nbsp;&nbsp;0</html>", "0x30");
+        JLabel keyquote = initLabel("<html>?<br />&nbsp;&nbsp;'</html>", "0xDE");
+        JLabel keyequal = initLabel("<html>¿<br />&nbsp;&nbsp;¡</html>", "518");
         keybackspace = initLabelWithDimension("Backspace", "0x08", 60, 40);
+
         alphabetPanel = new JPanel();
         JLabel keytab = initLabelWithDimension("Tab", "0x09", 60, 40);
         JLabel keyq = initLabel("q", "0x51");
@@ -392,44 +359,48 @@ public class KeyboardUI extends JFrame {
         JLabel keyi = initLabel("i", "0x49");
         JLabel keyo = initLabel("o", "0x4F");
         JLabel keyp = initLabel("p", "0x50");
-        JLabel keyopenbigbracket = initLabel("<html>{<br />&nbsp;&nbsp;[</html>", "0x5B");
-        JLabel keyclosebigbracket = initLabel("<html>}<br />&nbsp;&nbsp;]</html>", "0x5D");
-        JLabel keybslash = initLabel("<html>|<br />&nbsp;&nbsp;\\</html>", "0x5C");
-        JLabel keyj = initLabel("j", "0x4A");
-        JLabel keyk = initLabel("k", "0x4B");
-        JLabel keyl = initLabel("l", "0x4C");
+        JLabel keyopenbigbracket = initLabel(" ", "0");
+        JLabel keyclosebigbracket = initLabel(" ", "0");
+        JLabel keybslash = initLabel("<html>*&nbsp;&nbsp;+</html>", "521");
+
         keycaps = initLabelWithDimension("Mayus", "0x14", 70, 40);
-        JLabel keysemicolon = initLabel("<html>:<br />&nbsp;&nbsp;;</html>", "0x3B");
-        JLabel keyquote = initLabel("<html>\"<br />&nbsp;&nbsp;'</html>", "0xDE");
         JLabel keya = initLabel("a", "0x41");
-        JLabel keyenter = initLabelWithDimension("Enter", "0x0A", 76, 40);
         JLabel keys = initLabel("s", "0x53");
         JLabel keyd = initLabel("d", "0x44");
         JLabel keyf = initLabel("f", "0x46");
         JLabel keyg = initLabel("g", "0x47");
         JLabel keyh = initLabel("h", "0x48");
-        JLabel keym = initLabel("m", "0x4D");
-        JLabel keycomma = initLabel("<html>&lt;&nbsp;&nbsp;,</html>", "0x2C");
-        JLabel keydot = initLabel("<html>&gt;&nbsp;&nbsp;.</html>", "0x2E");
+        JLabel keyj = initLabel("j", "0x4A");
+        JLabel keyk = initLabel("k", "0x4B");
+        JLabel keyl = initLabel("l", "0x4C");
+        JLabel keysemicolon = initLabel("<html>¨&nbsp;&nbsp;´</html>", "129");
+        JLabel keyfslash = initLabel(" ", "0");
+        JLabel keyenter = initLabelWithDimension("Enter", "0x0A", 76, 40);
+
         keyshiftl = initLabelWithDimension("Shift", "0x10", 87, 40);
-        JLabel keyfslash = initLabel("/", "0x2F");
         JLabel keyz = initLabel("z", "0x5A");
-        keyshiftr = initLabel("Shift", "0x10");
         JLabel keyx = initLabel("x", "0x58");
         JLabel keyc = initLabel("c", "0x43");
         JLabel keyv = initLabel("v", "0x56");
         JLabel keyb = initLabel("b", "0x42");
         JLabel keyn = initLabel("n", "0x4E");
-        JLabel keyrightarrow = initLabel(">", "0x27");
+        JLabel keym = initLabel("m", "0x4D");
+        JLabel keycomma = initLabel("<html>;&nbsp;&nbsp;,</html>", "0x2C");
+        JLabel keydot = initLabel("<html>:&nbsp;&nbsp;.</html>", "0x2E");
+        JLabel keyminus = initLabel("<html>_&nbsp;&nbsp;-</html>", "0x2D");
+        keyshiftr = initLabel("Shift", "0x10");
+
         keyctrl1 = initLabel("Ctrl", "0x11");
         JLabel keycommercialat = initLabel("@", "0x200");
         keyalt = initLabel("Alt", "0x12");
         JLabel keyspace = initLabelWithDimension(" ", "0x20", 244, 40);
+        keyaltgr = initLabel("Alt", "0x12");
         keyctrl2 = initLabel("Ctrl", "0x11");
-        JLabel keyleftarrow = initLabel("<", "0x26");
+        JLabel keyleftarrow = initLabel("<", "0x25");
+        JLabel keyrightarrow = initLabel(">", "0x27");
         JLabel keyuparrow = initLabelWithDimension("^", "0x26", 40, 19);
         JLabel keydownarrow = initLabelWithDimension(" ", "0x28", 40, 19);
-        keyaltgr = initLabel("Alt", "0x12");
+
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Teclado Virtual");
@@ -472,7 +443,7 @@ public class KeyboardUI extends JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(key0, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(keyminus, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                .addComponent(keyquote, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
                 .addComponent(keyequal, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
@@ -492,7 +463,7 @@ public class KeyboardUI extends JFrame {
                     .addComponent(key8, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                     .addComponent(key9, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                     .addComponent(key0, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(keyminus, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(keyquote, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                     .addComponent(keyequal, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                     .addComponent(keybackspace, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                     .addComponent(key1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
@@ -531,7 +502,7 @@ public class KeyboardUI extends JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(keysemicolon, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
-                        .addComponent(keyquote, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(keyfslash, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
                         .addComponent(keyenter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                     .addGroup(alphabetPanelLayout.createSequentialGroup()
@@ -557,11 +528,11 @@ public class KeyboardUI extends JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(keyp, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
-                        .addComponent(keyopenbigbracket, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(keybslash, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
                         .addComponent(keyclosebigbracket, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
-                        .addComponent(keybslash, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(keyopenbigbracket, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(GroupLayout.Alignment.TRAILING, alphabetPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -607,7 +578,7 @@ public class KeyboardUI extends JFrame {
                         .addGap(4, 4, 4)
                         .addComponent(keydot, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
-                        .addComponent(keyfslash, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(keyminus, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
                         .addComponent(keyshiftr, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17))
@@ -648,7 +619,7 @@ public class KeyboardUI extends JFrame {
                         .addComponent(keyenter, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
                     .addGroup(alphabetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(keysemicolon, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(keyquote, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(keyfslash, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
                 .addGap(4, 4, 4)
                 .addGroup(alphabetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(alphabetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
@@ -664,7 +635,7 @@ public class KeyboardUI extends JFrame {
                     .addGroup(alphabetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                         .addComponent(keycomma, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
                         .addComponent(keydot, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(keyfslash, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(keyminus, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)))
                 .addGap(4, 4, 4)
                 .addGroup(alphabetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(keycommercialat, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)

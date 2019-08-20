@@ -35,7 +35,6 @@ public class Keyboard {
     public static void typeKey(int keycode) {
         pressKey(keycode);
         releaseKey(keycode);
-        System.out.println("keycode: " + keycode);
         switch(keycode) {
             case VK_CAPS_LOCK:
                 IS_CAPS_LOCK_ON = !IS_CAPS_LOCK_ON;
