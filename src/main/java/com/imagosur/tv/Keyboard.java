@@ -78,7 +78,7 @@ public class Keyboard {
             case VK_AT:
                 robot.keyPress(KeyEvent.VK_CONTROL);
                 robot.keyPress(KeyEvent.VK_ALT);
-                robot.keyPress(KeyEvent.VK_Q);
+                robot.keyPress(KeyEvent.VK_2);
                 return;
         }
         robot.keyPress(keycode);

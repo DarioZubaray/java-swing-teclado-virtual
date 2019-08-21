@@ -360,7 +360,7 @@ public class KeyboardUI extends JFrame {
         JLabel keyo = initLabel("o", "0x4F");
         JLabel keyp = initLabel("p", "0x50");
         JLabel keyopenbigbracket = initLabel(" ", "0");
-        JLabel keyclosebigbracket = initLabel(" ", "0");
+        JLabel keyclosebigbracket = initLabel("´", "128");
         JLabel keybslash = initLabel("<html>*&nbsp;&nbsp;+</html>", "521");
 
         keycaps = initLabelWithDimension("Mayus", "0x14", 70, 40);
@@ -373,7 +373,7 @@ public class KeyboardUI extends JFrame {
         JLabel keyj = initLabel("j", "0x4A");
         JLabel keyk = initLabel("k", "0x4B");
         JLabel keyl = initLabel("l", "0x4C");
-        JLabel keysemicolon = initLabel("<html>¨&nbsp;&nbsp;´</html>", "129");
+        JLabel keysemicolon = initLabel(" ", "0");
         JLabel keyfslash = initLabel(" ", "0");
         JLabel keyenter = initLabelWithDimension("Enter", "0x0A", 76, 40);
 
