@@ -28,14 +28,15 @@ public class Main {
 
     public static void checkApplicationRunning(int port) {
         try {
+            @SuppressWarnings("resource")
             ServerSocket ss = new ServerSocket();
             ss.bind(new InetSocketAddress(port));
             System.out.println("Aplicacion iniciada, ocupando el puerto local: " + port);
         } catch (SocketException e) {
-            System.out.println("La aplicacion ya se encuentra corriendo, finalizando aplicacion");
+            System.err.println("La aplicacion ya se encuentra corriendo, finalizando.");
             System.exit(1);
         } catch (Exception e) {
-            System.out.println("La aplicacion encontro algun problema de arranque: " + e.getMessage());
+            System.err.println("La aplicacion encontró algun problema de arranque: " + e.getMessage());
             System.exit(1);
         }
     }
